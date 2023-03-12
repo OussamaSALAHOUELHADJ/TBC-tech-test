@@ -1,0 +1,14 @@
+[
+  {
+    "title": "fast and furious",
+    "id": "fast-and-furious",
+    "OmdbQuerySearch": "Fast & Furious",
+    "isSerie": true
+  },
+  {
+    "title": "Pirates-of-the-Caribbean",
+    "id": "Pirates of the Caribbean",
+    "OmdbQuerySearch": "Pirates of the Caribbean",
+    "isSerie": false
+  }
+]

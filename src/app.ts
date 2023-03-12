@@ -5,7 +5,7 @@ import compression from 'compression';
 
 import { errorHandler } from './middlewares';
 import { notFoundHandler } from './middlewares/notFoundHandler';
-import { indexRoutes } from './routes';
+import { filmRoutes, indexRoutes } from './routes';
 
 // Create Express app
 const app = express();
@@ -18,6 +18,7 @@ app.use(helmet());
 app.use(compression());
 
 app.use('/', indexRoutes);
+app.use('/films', filmRoutes);
 
 // 404 error handler
 app.use(notFoundHandler);
