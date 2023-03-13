@@ -53,20 +53,43 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.get(
-  '/:id/backup',
+router.post(
+  '/:filmId/backup',
   availableFilmsHandler,
-  async (
-    film: AvailableFilm,
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    const filmCntr = new FilmController();
+  async (req: Request, res: Response, next: NextFunction) => {
+    const film = res.locals.film;
+
     if (film) {
-      //TODO: backup to Google Spreadsheet.
+      try {
+        const createdSheet = await createSheetIfNotExist({
+          sheetName: film.id,
+          options: {
+            permissions: { permissions: UserToGrantPermissions },
+          },
+        });
+
+        const sheetId = createdSheet?.spreadsheetId;
+        if (sheetId) {
+          const filmCntr = new FilmController();
+          const films = await filmCntr.getFilm(film.OmdbQuerySearch, film.type);
+          const transformedData = jsonTo2DimArray(films);
+          await updateSheet({
+            spreadsheetId: sheetId,
+            values: transformedData,
+            range: 'Sheet1',
+          });
+        }
+
+        res.status(201).json({
+          message: `the movie ${createdSheet?.properties?.title} was backed up successfully`,
+          id: sheetId,
+          url: createdSheet?.spreadsheetUrl,
+        });
+      } catch (error) {
+        next(error);
+      }
     } else {
-      //TODO: return a 405 Method Not Allowed status
+      res.status(405).json({ message: 'cannot backup this film.' });
     }
   }
 );
