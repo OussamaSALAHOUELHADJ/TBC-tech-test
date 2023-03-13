@@ -1,6 +1,5 @@
-import { OmdbService } from '../services/omdbService';
-import { Film } from '../types/film';
-import { OmdbApiSearchResponse } from '../types/OmdbApiSearchResponse';
+import { OmdbService } from '../services';
+import { Film, OmdbApiSearchResponse } from '../types';
 
 export class FilmController {
   async getFilm(id: string, type?: string) {

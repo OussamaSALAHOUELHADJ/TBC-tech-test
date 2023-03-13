@@ -1,5 +1,5 @@
 import { app } from './app';
-import dotenv from './config/dotenv';
+import { dotenv } from './config';
 
 const port = dotenv.PORT;
 

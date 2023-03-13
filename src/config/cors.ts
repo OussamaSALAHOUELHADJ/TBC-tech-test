@@ -1,5 +1,5 @@
 import cors, { CorsOptions } from 'cors';
-import dotenv from './dotenv';
+import { dotenv } from '../config';
 
 const whitelist = [
   `http://localhost:${dotenv.PORT}`,
@@ -25,4 +25,6 @@ const corsOptions: CorsOptions = {
   credentials: true,
 };
 
-export default cors(corsOptions);
+const corsConfig = cors(corsOptions);
+
+export { corsConfig as cors };

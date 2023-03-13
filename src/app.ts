@@ -1,10 +1,8 @@
 import express from 'express';
-import cors from './config/cors';
 import helmet from 'helmet';
 import compression from 'compression';
-
-import { errorHandler } from './middlewares';
-import { notFoundHandler } from './middlewares/notFoundHandler';
+import { cors } from './config';
+import { errorHandler, notFoundHandler } from './middlewares';
 import { filmRoutes, indexRoutes } from './routes';
 
 // Create Express app

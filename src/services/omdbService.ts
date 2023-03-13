@@ -1,8 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { Film } from './../types/film';
-import { OmdbApiSearchResponse } from '../types/OmdbApiSearchResponse';
-import createAxiosInstance from '../config/axios';
-import dotenv from '../config/dotenv';
+import { createAxiosInstance, dotenv } from '../config';
+import { Film, OmdbApiSearchResponse } from './../types';
 
 export class OmdbService {
   private readonly baseUrl: string = 'http://www.omdbapi.com/';

@@ -1,9 +1,8 @@
-import { createSheetIfNotExist } from './../services/';
-import { writeSheet } from './../services/';
-import { FilmController } from './../controllers/FilmController';
 import { Router, Request, Response, NextFunction } from 'express';
-import { availableFilmsHandler } from '../middlewares';
+import { FilmController } from './../controllers';
 import UserToGrantPermissions from '../databases/googleDriveAccessUserList.json';
+import { availableFilmsHandler } from '../middlewares';
+import { createSheetIfNotExist, updateSheet } from './../services';
 import { jsonTo2DimArray } from '../utils';
 
 const router = Router();

@@ -1,6 +1,6 @@
-import { AvailableFilm } from './../types/availableFilms';
 import { Request, Response, NextFunction } from 'express';
 import availableFilms from '../databases/availableFilms.json';
+import { AvailableFilm } from './../types';
 
 export function availableFilmsHandler(
   req: Request,
