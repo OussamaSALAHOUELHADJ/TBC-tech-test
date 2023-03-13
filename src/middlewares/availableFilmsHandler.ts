@@ -1,3 +1,4 @@
+import { AvailableFilm } from './../types/availableFilms';
 import { Request, Response, NextFunction } from 'express';
 import availableFilms from '../databases/availableFilms.json';
 
@@ -6,17 +7,14 @@ export function availableFilmsHandler(
   res: Response,
   next: NextFunction
 ) {
-  let film;
+  let film: AvailableFilm | undefined = undefined;
   const filmId = req.params.filmId;
   try {
     film = availableFilms.find((f) => f.id === filmId);
+
+    res.locals.film = film;
+    next();
   } catch (error) {
     next(error);
-  }
-
-  if (film) {
-    next(film);
-  } else {
-    return res.redirect(301, `${req.baseUrl}?search=${filmId}`);
   }
 }
