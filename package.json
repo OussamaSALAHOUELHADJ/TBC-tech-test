@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "npx nodemon",
+    "start:dev": "APP_ENV=dev npx nodemon",
     "lint": "eslint --fix . && prettier --write .",
-    "build": "rm -rf ./build && tsc",
-    "start": "npm run build && node build/server.js",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && APP_ENV=prod && node build/server.js",
     "test": "echo no tests written"
   },
   "keywords": [],
@@ -31,6 +31,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.21",
     "prettier": "^2.8.4",
+    "rimraf": "^4.4.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.5"

@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 
-const params: dotenv.DotenvConfigOptions = { path: '.env.local' };
+const params: dotenv.DotenvConfigOptions = {
+  path: process.env.APP_ENV === 'dev' ? '.env.local' : '.env',
+};
 
 dotenv.config(params);
 
