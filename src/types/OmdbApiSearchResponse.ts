@@ -1,6 +1,6 @@
-import { Film } from './film';
+import { OmdbSearchFilm } from './../models';
 export interface OmdbApiSearchResponse {
-  Search: Film[];
+  Search: OmdbSearchFilm[];
   totalResults: number;
   Response: boolean;
 }

@@ -1,9 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { FilmController } from './../controllers';
-import UserToGrantPermissions from '../databases/googleDriveAccessUserList.json';
-import { availableFilmsHandler } from '../middlewares';
-import { createSheetIfNotExist, updateSheet } from './../services';
-import { jsonTo2DimArray } from '../utils';
+import { OmdbFilm } from './../models';
+import {
 
 const router = Router();
 
@@ -12,9 +9,7 @@ router.get(
   availableFilmsHandler,
   async (req: Request, res: Response, next: NextFunction) => {
     const film = res.locals.film;
-    const { filmId } = req.params;
-    if (film) {
-      const filmCntr = new FilmController();
+    const filmList: OmdbFilm[] = res.locals.filmList;
       try {
         const films = await filmCntr.getFilm(film.OmdbQuerySearch, film.type);
         const totalResults = films.length;
@@ -39,6 +34,7 @@ router.get(
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   const filmCntr = new FilmController();
   const search = req.query.search?.toString() ?? '';
+    const filmList: OmdbFilm[] = res.locals.filmList;
   try {
     const films = await filmCntr.getFilm(search ?? '');
 

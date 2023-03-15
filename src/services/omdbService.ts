@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { OmdbFilm, OmdbSearchFilm, Film } from './../models';
 import { createAxiosInstance, dotenv } from '../config';
 import { Film, OmdbApiSearchResponse } from './../types';
 
