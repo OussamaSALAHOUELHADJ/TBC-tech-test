@@ -1,7 +1,6 @@
 import express from 'express';
-import helmet from 'helmet';
 import compression from 'compression';
-import { cors } from './config';
+import { cors, hlmt as helmet, limiter } from './config';
 import { errorHandler, notFoundHandler } from './middlewares';
 import { filmRoutes, indexRoutes } from './routes';
 
@@ -12,7 +11,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors);
-app.use(helmet());
+app.use(helmet);
+app.use(limiter);
 app.use(compression());
 
 app.use('/', indexRoutes);
