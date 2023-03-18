@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { OmdbFilm, OmdbSearchFilm, Film } from './../models';
+import { OmdbFilm } from './../models';
+import { Film, OmdbSearchFilm } from './../models';
 import { createAxiosInstance, dotenv } from '../config';
-import { Film, OmdbApiSearchResponse } from './../types';
 
 export class OmdbService {
   private readonly baseUrl: string = 'http://www.omdbapi.com/';
@@ -14,8 +14,8 @@ export class OmdbService {
   public async getMovieList(
     id: Film['id'],
     type?: Film['type']
-  ): Promise<OmdbApiSearchResponse> {
-    let movies: Film[] = [];
+  ): Promise<OmdbFilm[]> {
+    let movies: OmdbSearchFilm[] = [];
     let response: AxiosResponse;
 
     let page = 1;
@@ -36,10 +36,21 @@ export class OmdbService {
       isResponded = Response;
     } while (isResponded && movies.length < totalFilms);
 
-    return {
-      Search: movies,
-      totalResults: totalFilms,
-      Response: movies.length > 0,
-    };
+    const fullDataMovieList: OmdbFilm[] = [];
+
+    for (const index in movies) {
+      fullDataMovieList[index] = await this.getMovie(movies[index].imdbID);
+    }
+
+    return fullDataMovieList;
+  }
+
+  public async getMovie(imdbId: string): Promise<OmdbFilm> {
+    const response: AxiosResponse = await this.axios.get(this.baseUrl, {
+      params: { i: imdbId, apikey: dotenv.OMDB_API_KEY },
+    });
+    const movie: OmdbFilm = new OmdbFilm(response.data);
+
+    return movie;
   }
 }
