@@ -1,13 +1,17 @@
-import { OmdbFilm, OmdbSearchFilm } from '../models';
+import { OmdbFilm } from '../models';
 import { OmdbService } from '../services';
-import { Film, OmdbApiSearchResponse } from '../types';
 
 export class FilmController {
-  async getFilm(id: string, type?: string) {
+  async searchFilmList(id: string, type?: string) {
     const ombd = new OmdbService();
-    const data: OmdbApiSearchResponse = await ombd.getMovieList(id, type);
-      const films: OmdbSearchFilm[] = data.Search;
-    const films: Film[] = data.Search;
+    const films: OmdbFilm[] = await ombd.getMovieList(id, type);
+
     return films;
+  }
+
+  async getFilm(id: string) {
+    const ombd = new OmdbService();
+    const film: OmdbFilm = await ombd.getMovie(id);
+    return film;
   }
 }

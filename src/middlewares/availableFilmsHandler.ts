@@ -9,6 +9,7 @@ export function availableFilmsHandler(
 ) {
   let film: AvailableFilm | undefined = undefined;
   const filmId = req.params.filmId;
+
   try {
     film = availableFilms.find((f) => f.id === filmId);
 

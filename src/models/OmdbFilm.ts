@@ -72,10 +72,10 @@ export class OmdbFilm {
         otherFilmValue: OmdbFilm[key] | undefined,
         thisFilm?: OmdbFilm,
         otherFilm?: OmdbFilm
-      ) => B;
+      ) => any;
     }
-  ): any {
-    const results: { [key in A]?: any } = {};
+  ): { [key in A]?: B } {
+    const results: { [key in A]?: B } = {};
     for (const key in compareFuncs) {
       const compareFunc = compareFuncs[key];
       const thisValue = this[key];
